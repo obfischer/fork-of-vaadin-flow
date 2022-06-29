@@ -107,7 +107,7 @@ public class TaskRunNpmInstallTest {
         return new TaskRunNpmInstall(getNodeUpdater(), false, false,
                 FrontendTools.DEFAULT_NODE_VERSION,
                 URI.create(NodeInstaller.DEFAULT_NODEJS_DOWNLOAD_ROOT), false,
-                false, additionalPostInstall);
+                false, additionalPostInstall, Mockito.mock(FeatureFlags.class));
     }
 
     @Test
@@ -271,11 +271,11 @@ public class TaskRunNpmInstallTest {
             throws IOException, ExecutionFailedException {
         exception.expectMessage(
                 "it's either not a file or not a 'node' executable.");
-        assertRunNpmInstallThrows_vaadinHomeNodeIsAFolder(
-                new TaskRunNpmInstall(getNodeUpdater(), false, true,
-                        FrontendTools.DEFAULT_NODE_VERSION,
-                        URI.create(NodeInstaller.DEFAULT_NODEJS_DOWNLOAD_ROOT),
-                        false, false, new ArrayList<>()));
+        assertRunNpmInstallThrows_vaadinHomeNodeIsAFolder(new TaskRunNpmInstall(
+                getNodeUpdater(), false, true,
+                FrontendTools.DEFAULT_NODE_VERSION,
+                URI.create(NodeInstaller.DEFAULT_NODEJS_DOWNLOAD_ROOT), false,
+                false, new ArrayList<>(), Mockito.mock(FeatureFlags.class)));
     }
 
     @Test

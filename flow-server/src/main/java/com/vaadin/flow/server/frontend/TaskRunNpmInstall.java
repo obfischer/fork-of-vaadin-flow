@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 
+import com.vaadin.experimental.FeatureFlags;
 import com.vaadin.flow.server.Constants;
 import com.vaadin.flow.server.ExecutionFailedException;
 import com.vaadin.flow.server.Platform;
@@ -131,6 +132,8 @@ public class TaskRunNpmInstall implements FallibleCommand {
 
     private List<String> additionalPostinstallPackages;
 
+    private FeatureFlags featureFlags;
+
     /**
      * Create an instance of the command.
      *
@@ -157,14 +160,18 @@ public class TaskRunNpmInstall implements FallibleCommand {
      *            {@code true} to automatically update to a new node version
      * @param additionalPostinstallPackages
      *            a list of packages to run postinstall for
+     * @param featureFlags
+     *            the active feature flags
      */
     TaskRunNpmInstall(NodeUpdater packageUpdater, boolean enablePnpm,
             boolean requireHomeNodeExec, String nodeVersion,
             URI nodeDownloadRoot, boolean useGlobalPnpm, boolean autoUpdate,
-            List<String> additionalPostinstallPackages) {
+            List<String> additionalPostinstallPackages,
+            FeatureFlags featureFlags) {
         this.packageUpdater = packageUpdater;
         this.enablePnpm = enablePnpm;
         this.requireHomeNodeExec = requireHomeNodeExec;
+        this.featureFlags = featureFlags;
         this.nodeVersion = Objects.requireNonNull(nodeVersion);
         this.nodeDownloadRoot = Objects.requireNonNull(nodeDownloadRoot);
         this.useGlobalPnpm = useGlobalPnpm;
@@ -333,6 +340,11 @@ public class TaskRunNpmInstall implements FallibleCommand {
         }
 
         npmInstallCommand.add("--ignore-scripts");
+        if (!enablePnpm && featureFlags.isEnabled(FeatureFlags.VITE)) {
+            // This is needed for vite-plugin-checker@0.3.4 which depends on
+            // Vite 2
+            npmInstallCommand.add("--legacy-peer-deps");
+        }
         npmInstallCommand.add("install");
 
         postinstallCommand.add("run");

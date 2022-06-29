@@ -766,7 +766,7 @@ public class NodeTasks implements FallibleCommand {
                         builder.enablePnpm, builder.requireHomeNodeExec,
                         builder.nodeVersion, builder.nodeDownloadRoot,
                         builder.useGlobalPnpm, builder.nodeAutoUpdate,
-                        builder.postinstallPackages));
+                        builder.postinstallPackages, featureFlags));
 
                 commands.add(new TaskInstallWebpackPlugins(
                         new File(builder.npmFolder, builder.buildDirectory)));
