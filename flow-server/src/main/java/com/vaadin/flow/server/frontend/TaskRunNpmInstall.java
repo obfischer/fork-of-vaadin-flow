@@ -340,11 +340,6 @@ public class TaskRunNpmInstall implements FallibleCommand {
         }
 
         npmInstallCommand.add("--ignore-scripts");
-        if (!enablePnpm && featureFlags.isEnabled(FeatureFlags.VITE)) {
-            // This is needed for vite-plugin-checker@0.3.4 which depends on
-            // Vite 2
-            npmInstallCommand.add("--legacy-peer-deps");
-        }
         npmInstallCommand.add("install");
 
         postinstallCommand.add("run");
