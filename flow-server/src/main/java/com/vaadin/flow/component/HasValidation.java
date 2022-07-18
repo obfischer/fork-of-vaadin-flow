@@ -64,6 +64,17 @@ public interface HasValidation extends Serializable {
      * otherwise.
      *
      * @return whether the component input is valid
+     * @see #isValid()
      */
     boolean isInvalid();
+
+    /**
+     * Returns true, if component input is valid, false otherwise.
+     *
+     * @return wether the component input is valid, or not
+     * @see #isInvalid()
+     */
+    default boolean isValid() {
+        return !isInvalid();
+    }
 }

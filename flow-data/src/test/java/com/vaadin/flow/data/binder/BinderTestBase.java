@@ -73,10 +73,12 @@ public abstract class BinderTestBase<BINDER extends Binder<ITEM>, ITEM>
                 "The field should contain same error message as binder",
                 expectedErrorMessage, field.getErrorMessage());
         Assert.assertTrue("The field should be invalid", field.isInvalid());
+        Assert.assertTrue("The field should be valid", field.isValid());
     }
 
     void assertValidField(HasValidation field) {
         Assert.assertFalse("The field should be valid", field.isInvalid());
+        Assert.assertTrue("The field should be valid", field.isValid());
     }
 
     @Before

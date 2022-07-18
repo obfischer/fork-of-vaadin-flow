@@ -706,12 +706,14 @@ public class BinderTest extends BinderTestBase<Binder<Person>, Person> {
 
         textField.setValue("value");
         assertFalse(textField.isInvalid());
+        assertTrue(textField.isValid());
         assertTrue(textField.isRequiredIndicatorVisible());
 
         binding.setAsRequiredEnabled(false);
         assertFalse(textField.isRequiredIndicatorVisible());
         textField.setValue("");
         assertFalse(textField.isInvalid());
+        assertTrue(textField.isValid());
     }
 
     @Test(expected = IllegalStateException.class)
@@ -777,6 +779,7 @@ public class BinderTest extends BinderTestBase<Binder<Person>, Person> {
 
         textField.setValue("value");
         assertFalse(textField.isInvalid());
+        assertTrue(textField.isValid());
         assertTrue(textField.isRequiredIndicatorVisible());
     }
 
@@ -813,6 +816,7 @@ public class BinderTest extends BinderTestBase<Binder<Person>, Person> {
 
         textField.setValue("value");
         assertFalse(textField.isInvalid());
+        assertTrue(textField.isValid());
         assertTrue(textField.isRequiredIndicatorVisible());
     }
 
@@ -865,6 +869,7 @@ public class BinderTest extends BinderTestBase<Binder<Person>, Person> {
 
         textField.setValue("value");
         assertFalse(textField.isInvalid());
+        assertTrue(textField.isValid());
         assertTrue(textField.isRequiredIndicatorVisible());
     }
 

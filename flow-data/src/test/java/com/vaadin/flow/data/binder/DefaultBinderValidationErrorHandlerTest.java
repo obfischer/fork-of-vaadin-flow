@@ -46,6 +46,7 @@ public class DefaultBinderValidationErrorHandlerTest {
         handler.handleError(field, ValidationResult.error(""));
 
         Assert.assertTrue(field.isInvalid());
+        Assert.assertFalse(field.isValid());
 
         Assert.assertTrue(field.getElement().getThemeList()
                 .contains(ErrorLevel.ERROR.name().toLowerCase(Locale.ENGLISH)));
